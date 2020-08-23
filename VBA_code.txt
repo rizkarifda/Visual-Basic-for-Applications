@@ -1,0 +1,217 @@
+Public nKelas As Double
+Public nMin As Double
+Public nMax As Double
+Public jum As Integer
+Public nInterval As Double
+Public nLog As Double
+Private Sub CommandButton1_Click()
+Dim i As Integer
+'Clear
+Range("D1:D5").ClearContents
+'Jumlah data
+jum = Application.WorksheetFunction.Count(Range("C:C"))
+Cells(5, 4) = jum
+'Nilai Terkecil
+nMin = Application.WorksheetFunction.Min(Range("C:C"))
+Cells(1, 4) = nMin
+'Nilai Terbesar
+nMax = Application.WorksheetFunction.Max(Range("C:C"))
+Cells(2, 4) = nMax
+'Kategori/Kelas
+nLog = Application.WorksheetFunction.Log10(jum)
+nKelas = 1 + 3.32 * nLog
+Cells(3, 4) = Application.WorksheetFunction.RoundDown(nKelas, 0)
+'Interval
+nInterval = (nMax - nMin) / nKelas
+Cells(4, 4) = Application.WorksheetFunction.RoundDown(nInterval, 0)
+End Sub
+
+Private Sub CommandButton2_Click()
+Dim i As Integer
+
+'Clear
+Range("G2:G9").ClearContents
+Range("H2:H9").ClearContents
+Range("I2:I9").ClearContents
+Range("J2:J9").ClearContents
+'Cetak Kelas
+For i = 1 To Range("D3")
+    Cells(i + 1, 7).Value = i
+Next i
+'Cetak Interval
+'Min
+Cells(2, 8) = nMin
+For i = 2 To Range("D3")
+    Cells(i + 1, 8).Value = Application.WorksheetFunction.RoundDown((Cells(i, 8) + (nInterval + 1)), 0)
+Next i
+'Max
+For i = 2 To Range("D3") + 1
+    Cells(i, 9).Value = Application.WorksheetFunction.RoundDown((Cells(i, 8) + Range("D4")), 0)
+Next i
+'Interval range
+For i = 2 To Range("D3") + 1
+    Cells(i, 10).Value = Cells(i, 8) & "-" & Cells(i, 9)
+Next i
+End Sub
+
+Private Sub CommandButton3_Click()
+Dim i As Integer
+
+'Clear
+Range("K2:K9").ClearContents
+'Frekuensi
+For i = 2 To Range("D3") + 1
+    Cells(i, 11).Value = Application.WorksheetFunction.CountIfs(Range("C:C"), ">=" & Cells(i, 8), Range("C:C"), "<=" & Cells(i, 9))
+Next i
+End Sub
+
+Private Sub CommandButton4_Click()
+Dim i As Integer
+
+'Clear
+Range("L2:L9").ClearContents
+'Frekuensi Relatif
+For i = 2 To Range("D3") + 1
+    Cells(i, 12).Value = (Cells(i, 11) / jum) * 100
+Next i
+End Sub
+
+Private Sub CommandButton5_Click()
+Dim i As Integer
+
+'Clear
+Range("M2:M9").ClearContents
+Range("N2:N9").ClearContents
+'Nilai Tengah
+For i = 2 To Range("D3") + 1
+    Cells(i, 13).Value = (Cells(i, 8) + Cells(i, 9)) / 2
+Next i
+'Nilai Tepi Kelas
+Cells(2, 14) = Range("H2") + 0.5
+For i = 2 To Range("D3") + 1
+    Cells(i + 1, 14).Value = (Cells(i, 9) + Cells(i + 1, 8)) / 2
+Next i
+End Sub
+
+Private Sub CommandButton6_Click()
+Dim i As Integer
+
+'Clear
+Range("O2:O9").ClearContents
+Range("P2:P9").ClearContents
+'Kurang dari
+For i = 2 To Range("D3") + 1
+    Cells(i, 15).Value = Application.WorksheetFunction.CountIf(Range("C:C"), "<" & Cells(i, 8))
+Next i
+'Lebih dari
+For i = 2 To Range("D3") + 1
+    Cells(i, 16).Value = Application.WorksheetFunction.CountIf(Range("C:C"), ">=" & Cells(i, 8))
+Next i
+End Sub
+'CLEAR ALL=========================================================
+Private Sub CommandButton7_Click()
+
+'Clear
+Range("D1:D5").ClearContents
+Range("G2:G9").ClearContents
+Range("H2:H9").ClearContents
+Range("I2:I9").ClearContents
+Range("J2:J9").ClearContents
+Range("K2:K9").ClearContents
+Range("L2:L9").ClearContents
+Range("M2:M9").ClearContents
+Range("N2:N9").ClearContents
+Range("O2:O9").ClearContents
+Range("P2:P9").ClearContents
+End Sub
+'HITUNG SEMUA===================================================
+Private Sub CommandButton8_Click()
+Dim nKelas As Double
+Dim nMin As Double
+Dim nMax As Double
+Dim jum As Integer
+Dim nInterval As Double
+Dim nLog As Double
+Dim i As Integer
+'Clear
+Range("D1:D5").ClearContents
+'Jumlah data
+jum = Application.WorksheetFunction.Count(Range("C:C"))
+Cells(5, 4) = jum
+'Nilai Terkecil
+nMin = Application.WorksheetFunction.Min(Range("C:C"))
+Cells(1, 4) = nMin
+'Nilai Terbesar
+nMax = Application.WorksheetFunction.Max(Range("C:C"))
+Cells(2, 4) = nMax
+'Kategori/Kelas
+nLog = Application.WorksheetFunction.Log10(jum)
+nKelas = 1 + 3.32 * nLog
+Cells(3, 4) = Application.WorksheetFunction.RoundDown(nKelas, 0)
+'Interval
+nInterval = (nMax - nMin) / nKelas
+Cells(4, 4) = Application.WorksheetFunction.RoundDown(nInterval, 0)
+
+'Clear
+Range("G2:G9").ClearContents
+Range("H2:H9").ClearContents
+Range("I2:I9").ClearContents
+Range("J2:J9").ClearContents
+'Cetak Kelas
+For i = 1 To Range("D3")
+    Cells(i + 1, 7).Value = i
+Next i
+'Cetak Interval
+'Min
+Cells(2, 8) = nMin
+For i = 2 To Range("D3")
+    Cells(i + 1, 8).Value = Application.WorksheetFunction.RoundDown((Cells(i, 8) + (nInterval + 1)), 0)
+Next i
+'Max
+For i = 2 To Range("D3") + 1
+    Cells(i, 9).Value = Application.WorksheetFunction.RoundDown((Cells(i, 8) + Range("D4")), 0)
+Next i
+'Interval range
+For i = 2 To Range("D3") + 1
+    Cells(i, 10).Value = Cells(i, 8) & "-" & Cells(i, 9)
+Next i
+
+'Clear
+Range("K2:K9").ClearContents
+'Frekuensi
+For i = 2 To Range("D3") + 1
+    Cells(i, 11).Value = Application.WorksheetFunction.CountIfs(Range("C:C"), ">=" & Cells(i, 8), Range("C:C"), "<=" & Cells(i, 9))
+Next i
+
+'Clear
+Range("L2:L9").ClearContents
+'Frekuensi Relatif
+For i = 2 To Range("D3") + 1
+    Cells(i, 12).Value = (Cells(i, 11) / jum) * 100
+Next i
+
+'Clear
+Range("M2:M9").ClearContents
+Range("N2:N9").ClearContents
+'Nilai Tengah
+For i = 2 To Range("D3") + 1
+    Cells(i, 13).Value = (Cells(i, 8) + Cells(i, 9)) / 2
+Next i
+'Nilai Tepi Kelas
+Cells(2, 14) = Range("H2") + 0.5
+For i = 2 To Range("D3") + 1
+    Cells(i + 1, 14).Value = (Cells(i, 9) + Cells(i + 1, 8)) / 2
+Next i
+
+'Clear
+Range("O2:O9").ClearContents
+Range("P2:P9").ClearContents
+'Kurang dari
+For i = 2 To Range("D3") + 1
+    Cells(i, 15).Value = Application.WorksheetFunction.CountIf(Range("C:C"), "<" & Cells(i, 8))
+Next i
+'Lebih dari
+For i = 2 To Range("D3") + 1
+    Cells(i, 16).Value = Application.WorksheetFunction.CountIf(Range("C:C"), ">=" & Cells(i, 8))
+Next i
+End Sub
